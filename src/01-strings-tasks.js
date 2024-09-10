@@ -141,8 +141,8 @@ function removeFirstOccurrences(str, value) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.slice(1, -1);
 }
 
 
@@ -156,8 +156,8 @@ function unbracketTag(/* str */) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  return str.toUpperCase();
 }
 
 /**
@@ -175,8 +175,8 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -202,8 +202,12 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const firstLine = `┌${'─'.repeat(width - 2)}┐\n`;
+  const lastLine = `└${'─'.repeat(width - 2)}┘\n`;
+  const middleLines = height > 2 ? `│${' '.repeat(width - 2)}│\n`.repeat(height - 2) : '';
+
+  return firstLine + middleLines + lastLine;
 }
 
 
@@ -223,8 +227,15 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const abc = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  let newStr = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] !== ' ' && str[i] !== '!' && str[i] !== '?') newStr += (str[i] === str[i].toLowerCase()) ? abc[(abc.indexOf(str[i]) + 13) % 26].toLowerCase() : abc[(abc.indexOf(str[i]) + 13) % 26].toUpperCase();
+    else newStr += str[i];
+  }
+
+  return newStr;
 }
 
 /**
@@ -240,10 +251,10 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (typeof value === 'object') return value instanceof String;
+  return typeof value === 'string';
 }
-
 
 /**
  * Returns playid card id.
